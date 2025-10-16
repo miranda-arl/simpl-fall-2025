@@ -1,5 +1,7 @@
 package assignment2;
 
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import edu.utexas.cs.sam.io.SamTokenizer;
 import edu.utexas.cs.sam.io.Tokenizer;
 import edu.utexas.cs.sam.io.Tokenizer.TokenType;
@@ -27,7 +29,23 @@ public class LiveOak2Compiler
 	static LabelGenerator labelGen = new LabelGenerator();
 
 	public static void main(String[] args) throws IOException {
+		if (args.length != 2) 
+		{
+			System.err.println("usage: java LiveOak2Compiler <source-file>");
+			return;
+		}
 
+		String fileName = args[0];
+		String pgm = compiler(fileName);
+
+		// write program to a new file
+		try (PrintWriter out = new PrintWriter(new FileWriter(args[1]))) {
+			out.print(pgm);
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("Error writing to output file");
+			System.err.println("Error writing to output file");
+		}
 	}
 
 	static String compiler(String fileName) 
