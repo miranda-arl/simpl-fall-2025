@@ -1,0 +1,123 @@
+start:
+JSR main
+foo:
+ADDSP 2
+PUSHIMM 5
+STOREOFF 2
+JUMP cond_361
+body_362:
+PUSHOFF -1
+PUSHIMM 2
+PUSHSP
+PUSHIMM -2
+ADD
+POPFBR
+PUSHIMM 0
+PUSHOFF 0
+str_repeat_beginning_364:
+DUP
+PUSHIND
+ISNIL
+JUMPC str_repeat_prepare_365
+SWAP
+PUSHIMM 1
+ADD
+SWAP
+PUSHIMM 1
+ADD
+JUMP str_repeat_beginning_364
+str_repeat_prepare_365:
+PUSHOFF 1
+PUSHOFF 2
+TIMES
+PUSHIMM 1
+ADD
+DUP
+DUP
+ISPOS
+JUMPC str_repeat_allocate_366
+ADDSP -1
+PUSHIMM 1
+str_repeat_allocate_366:
+MALLOC
+PUSHIMM 1
+PUSHOFF 4
+CMP
+PUSHIMM 1
+LESS
+JUMPC str_repeat_edgeEnd_369
+DUP
+PUSHOFF 0
+str_repeat_copy_371:
+DUP
+PUSHIND
+ISNIL
+JUMPC str_repeat_setUpForCopy_370
+DUP
+PUSHIND
+PUSHOFF 5
+SWAP
+STOREIND
+PUSHOFF 5
+PUSHIMM 1
+ADD
+STOREOFF 5
+PUSHIMM 1
+ADD
+JUMP str_repeat_copy_371
+str_repeat_setUpForCopy_370:
+STOREOFF 3
+PUSHOFF 6
+PUSHOFF 4
+PUSHIMM -1
+ADD
+ADD
+PUSHOFF 5
+EQUAL
+JUMPC str_repeat_prologue_367
+PUSHOFF 0
+JUMP str_repeat_copy_371
+str_repeat_edgeEnd_369:
+STOREOFF 1
+ADDSP -3
+JUMP str_repeat_ending_368
+str_repeat_prologue_367:
+STOREOFF 1
+ADDSP -4
+JUMP str_repeat_ending_368
+str_repeat_ending_368:
+SWAP
+ADDSP -1
+PUSHIMM 0
+POPFBR
+STOREOFF 3
+PUSHOFF 2
+PUSHIMM 1
+SUB
+STOREOFF 2
+JUMP endwhile_363
+cond_361:
+PUSHOFF 2
+PUSHIMM 0
+GREATER
+JUMPC body_362
+endwhile_363:
+PUSHOFF 3
+JUMP end_foo_360
+end_foo_360:
+STOREOFF -2
+ADDSP -2
+JUMPIND
+main:
+ADDSP 1
+PUSHIMM 0
+PUSHIMMSTR "Hello"
+LINK
+JSR foo
+POPFBR
+ADDSP -1
+JUMP end_main_372
+end_main_372:
+STOREOFF 0
+ADDSP -0
+STOP

@@ -1,0 +1,252 @@
+start:
+JUMP main
+main:
+ADDSP 1
+PUSHIMM 0
+PUSHIMM 0
+PUSHIMM 0
+PUSHIMM 0
+PUSHIMMSTR "This is just a test"
+LINK
+JSR reverseString
+POPFBR
+ADDSP -1
+PUSHIMM 2
+LINK
+JSR repeatString
+POPFBR
+ADDSP -2
+PUSHIMMSTR "right?"
+LINK
+JSR concatString
+POPFBR
+ADDSP -2
+PUSHIMM 0
+PUSHIMMSTR " no."
+PUSHIMM 10
+PUSHIMM -1
+TIMES
+LINK
+JSR repeatString
+POPFBR
+ADDSP -2
+LINK
+JSR concatString
+POPFBR
+ADDSP -2
+JUMP end_main_118
+end_main_118:
+STOREOFF 0
+ADDSP -0
+STOP
+concatString:
+str_concat_beginning:
+PUSHOFF -2
+PUSHIMM 0
+SWAP
+str_concat_loop1:
+DUP
+PUSHIND
+ISNIL
+JUMPC str_concat_middle
+SWAP
+PUSHIMM 1
+ADD
+SWAP
+PUSHIMM 1
+ADD
+JUMP str_concat_loop1
+str_concat_middle:
+PUSHOFF -1
+PUSHIMM 0
+SWAP
+JUMP str_concat_loop2
+str_concat_loop2:
+DUP
+PUSHIND
+ISNIL
+JUMPC str_concat_concatPrep
+SWAP
+PUSHIMM 1
+ADD
+SWAP
+PUSHIMM 1
+ADD
+JUMP str_concat_loop2
+str_concat_concatPrep:
+SWAP
+DUP
+PUSHOFF 2
+ADD
+PUSHIMM 1
+ADD
+MALLOC
+PUSHOFF -2
+str_concat_concat1:
+DUP
+PUSHIND
+ISNIL
+JUMPC str_concat_concat2Prep
+DUP
+PUSHIND
+PUSHOFF 6
+SWAP
+STOREIND
+PUSHIMM 1
+ADD
+PUSHOFF 6
+PUSHIMM 1
+ADD
+STOREOFF 6
+JUMP str_concat_concat1
+str_concat_concat2Prep:
+PUSHOFF -1
+str_concat_concat2:
+DUP
+PUSHIND
+ISNIL
+JUMPC str_concat_ending
+DUP
+PUSHIND
+PUSHOFF 6
+SWAP
+STOREIND
+PUSHIMM 1
+ADD
+PUSHOFF 6
+PUSHIMM 1
+ADD
+STOREOFF 6
+JUMP str_concat_concat2
+str_concat_ending:
+PUSHOFF 6
+PUSHOFF 2
+PUSHOFF 5
+ADD
+SUB
+STOREOFF -3
+ADDSP -7
+JUMPIND
+repeatString:
+PUSHIMM 0
+PUSHOFF -2
+str_repeat_beginning:
+DUP
+PUSHIND
+ISNIL
+JUMPC str_repeat_prepare
+SWAP
+PUSHIMM 1
+ADD
+SWAP
+PUSHIMM 1
+ADD
+JUMP str_repeat_beginning
+str_repeat_prepare:
+PUSHOFF -1
+PUSHOFF 2
+TIMES
+PUSHIMM 1
+ADD
+DUP
+DUP
+ISPOS
+JUMPC str_repeat_allocate
+ADDSP -1
+PUSHIMM 1
+str_repeat_allocate:
+MALLOC
+PUSHIMM 1
+PUSHOFF 4
+CMP
+PUSHIMM 1
+LESS
+JUMPC str_repeat_neg_prologue
+DUP
+PUSHOFF -2
+str_repeat_copy:
+DUP
+PUSHIND
+ISNIL
+JUMPC str_repeat_setUpForCopy
+DUP
+PUSHIND
+PUSHOFF 5
+SWAP
+STOREIND
+PUSHOFF 5
+PUSHIMM 1
+ADD
+STOREOFF 5
+PUSHIMM 1
+ADD
+JUMP str_repeat_copy
+str_repeat_setUpForCopy:
+STOREOFF 3
+PUSHOFF 6
+PUSHOFF 4
+PUSHIMM -1
+ADD
+ADD
+PUSHOFF 5
+EQUAL
+JUMPC str_repeat_pos_prologue
+PUSHOFF -2
+JUMP str_repeat_copy
+str_repeat_neg_prologue:
+STOREOFF -3
+ADDSP -3
+JUMPIND
+str_repeat_pos_prologue:
+STOREOFF -3
+ADDSP -4
+JUMPIND
+reverseString:
+PUSHOFF -1
+PUSHIMM 0
+SWAP
+str_rev_loop:
+DUP
+PUSHIND
+ISNIL
+JUMPC str_rev_middle
+SWAP
+PUSHIMM 1
+ADD
+SWAP
+PUSHIMM 1
+ADD
+JUMP str_rev_loop
+str_rev_middle:
+PUSHOFF 3
+PUSHIMM -1
+ADD
+STOREOFF 3
+PUSHOFF 2
+PUSHIMM 1
+ADD
+MALLOC
+str_rev_loop2:
+DUP
+PUSHOFF 3
+PUSHIND
+STOREIND
+PUSHIMM 1
+ADD
+PUSHOFF 3
+PUSHIMM -1
+ADD
+STOREOFF 3
+PUSHOFF 3
+PUSHOFF -1
+LESS
+JUMPC str_rev_ending
+JUMP str_rev_loop2
+str_rev_ending:
+PUSHOFF 2
+PUSHIMM -1
+TIMES
+ADD
+STOREOFF -2
+ADDSP -2
+JUMPIND

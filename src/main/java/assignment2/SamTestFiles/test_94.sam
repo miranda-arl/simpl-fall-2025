@@ -1,0 +1,176 @@
+main:
+ADDSP 5
+PUSHIMMSTR "The rain in Spain falls"
+STOREOFF 1
+PUSHOFF 1
+PUSHSP
+PUSHIMM -1
+ADD
+POPFBR
+DUP
+PUSHIMM 0
+SWAP
+str_rev_loop:
+DUP
+PUSHIND
+ISNIL
+JUMPC str_rev_middle
+SWAP
+PUSHIMM 1
+ADD
+SWAP
+PUSHIMM 1
+ADD
+JUMP str_rev_loop
+str_rev_middle:
+PUSHOFF 2
+PUSHIMM -1
+ADD
+STOREOFF 2
+PUSHOFF 1
+PUSHIMM 1
+ADD
+MALLOC
+str_rev_loop2:
+DUP
+PUSHOFF 2
+PUSHIND
+STOREIND
+PUSHIMM 1
+ADD
+PUSHOFF 2
+PUSHIMM -1
+ADD
+STOREOFF 2
+PUSHOFF 2
+PUSHOFF 0
+LESS
+JUMPC str_rev_ending
+JUMP str_rev_loop2
+str_rev_ending:
+PUSHOFF 1
+PUSHIMM -1
+TIMES
+ADD
+STOREOFF 1
+ADDSP -1
+SWAP
+ADDSP -1
+PUSHIMM 0
+POPFBR
+STOREOFF 2
+PUSHIMM 0
+PUSHOFF 0
+str_repeat_beginning:
+DUP
+PUSHIND
+ISNIL
+JUMPC str_repeat_prepare
+SWAP
+PUSHIMM 1
+ADD
+SWAP
+PUSHIMM 1
+ADD
+JUMP str_repeat_beginning
+str_repeat_prepare:
+PUSHOFF 1
+PUSHOFF 2
+TIMES
+PUSHIMM 1
+ADD
+DUP
+DUP
+ISPOS
+JUMPC str_repeat_allocate
+ADDSP -1
+PUSHIMM 1
+str_repeat_allocate:
+MALLOC
+PUSHIMM 1
+PUSHOFF 4
+CMP
+PUSHIMM 1
+LESS
+JUMPC str_repeat_edgeEnd
+DUP
+PUSHOFF 0
+str_repeat_copy:
+DUP
+PUSHIND
+ISNIL
+JUMPC str_repeat_setUpForCopy
+DUP
+PUSHIND
+PUSHOFF 5
+SWAP
+STOREIND
+PUSHOFF 5
+PUSHIMM 1
+ADD
+STOREOFF 5
+PUSHIMM 1
+ADD
+JUMP str_repeat_copy
+str_repeat_setUpForCopy:
+STOREOFF 3
+PUSHOFF 6
+PUSHOFF 4
+PUSHIMM -1
+ADD
+ADD
+PUSHOFF 5
+EQUAL
+JUMPC str_repeat_prologue
+PUSHOFF 0
+JUMP str_repeat_copy
+str_repeat_edgeEnd:
+STOREOFF 1
+ADDSP -3
+JUMP str_repeat_ending
+str_repeat_prologue:
+STOREOFF 1
+ADDSP -4
+JUMP str_repeat_ending
+str_repeat_ending:
+SWAP
+ADDSP -1
+STOREOFF 3
+PUSHIMMSTR "ZZZZ"
+STOREOFF 4
+PUSHOFF 1
+PUSHOFF 2
+EQUAL
+JUMPC else_378
+PUSHIMM 1
+NOT
+JUMP end_main_373
+JUMP endif_379
+else_378:
+PUSHOFF 2
+PUSHOFF 4
+LESS
+JUMPC else_376
+PUSHIMM 127
+JUMP end_main_373
+JUMP endif_377
+else_376:
+PUSHOFF 3
+PUSHOFF 4
+GREATER
+JUMPC else_374
+PUSHIMM 592
+JUMP end_main_373
+JUMP endif_375
+else_374:
+PUSHIMM 481
+JUMP end_main_373
+endif_375:
+endif_377:
+endif_379:
+PUSHIMM 703
+JUMP end_main_373
+end_main_373:
+STOREOFF 0
+ADDSP -4
+STOP

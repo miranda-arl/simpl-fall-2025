@@ -1,0 +1,309 @@
+start:
+JUMP main
+strCmp:
+ADDSP 2
+PUSHIMM 0
+PUSHOFF -2
+PUSHOFF -1
+LINK
+JSR greaterString
+POPFBR
+ADDSP -2
+STOREOFF 2
+PUSHIMM 0
+PUSHOFF -2
+PUSHOFF -1
+LINK
+JSR lessString
+POPFBR
+ADDSP -2
+STOREOFF 3
+PUSHOFF 2
+JUMPC then_598e431e
+PUSHOFF 3
+JUMPC then_1e1bb7bb
+PUSHIMM 0
+JUMP end_ea8ff775
+then_1e1bb7bb:
+PUSHIMM 1
+NOT
+end_ea8ff775:
+JUMP end_9c7b3197
+then_598e431e:
+PUSHIMM 1
+end_9c7b3197:
+JUMP end_strCmp_606
+end_strCmp_606:
+STOREOFF -3
+ADDSP -2
+JUMPIND
+main:
+ADDSP 4
+PUSHIMMSTR "bar"
+STOREOFF 1
+PUSHIMMSTR "bar"
+STOREOFF 2
+PUSHIMMSTR "foo"
+STOREOFF 3
+PUSHIMM 0
+PUSHOFF 1
+PUSHOFF 2
+LINK
+JSR equalString
+POPFBR
+ADDSP -2
+JUMPC then_608
+else_609:
+PUSHIMM 0
+PUSHOFF 3
+PUSHOFF 2
+LINK
+JSR strCmp
+POPFBR
+ADDSP -2
+JUMP end_main_607
+JUMP next_610
+then_608:
+PUSHIMM 0
+PUSHOFF 1
+PUSHOFF 3
+LINK
+JSR strCmp
+POPFBR
+ADDSP -2
+JUMP end_main_607
+next_610:
+PUSHIMM 0
+JUMP end_main_607
+end_main_607:
+STOREOFF 0
+ADDSP -3
+STOP
+equalString:
+PUSHIMM 0
+PUSHIMM 0
+PUSHIMM 0
+str_cmp_loop_611:
+PUSHOFF -2
+PUSHIND
+DUP
+ISNIL
+JUMPC str_cmp_secIsBigger_612
+PUSHOFF -1
+PUSHIND
+DUP
+ISNIL
+JUMPC str_cmp_firstIsBigger_613
+CMP
+DUP
+ISNEG
+JUMPC str_cmp_test_615
+DUP
+ISPOS
+JUMPC str_cmp_test_615
+ADDSP -1
+PUSHOFF -2
+PUSHIMM 1
+ADD
+STOREOFF -2
+PUSHOFF -1
+PUSHIMM 1
+ADD
+STOREOFF -1
+PUSHOFF 3
+PUSHIMM 1
+ADD
+STOREOFF 3
+PUSHOFF 4
+PUSHIMM 1
+ADD
+STOREOFF 4
+JUMP str_cmp_loop_611
+str_cmp_secIsBigger_612:
+ADDSP -1
+PUSHOFF -1
+PUSHIND
+ISNIL
+JUMPC str_cmp_equal_616
+PUSHIMM 1
+STOREOFF 2
+JUMP str_cmp_prologue_614
+str_cmp_firstIsBigger_613:
+ADDSP -2
+PUSHIMM -1
+STOREOFF 2
+JUMPC str_cmp_prologue_614
+str_cmp_prologue_614:
+PUSHOFF -2
+PUSHOFF 3
+SUB
+ADDSP -1
+PUSHOFF -1
+PUSHOFF 4
+SUB
+ADDSP -1
+ADDSP -2
+JUMP str_cmp_end_617
+str_cmp_test_615:
+STOREOFF 2
+JUMP str_cmp_prologue_614
+str_cmp_equal_616:
+PUSHIMM 0
+JUMP str_cmp_test_615
+str_cmp_end_617:
+PUSHIMM 0
+EQUAL
+STOREOFF-3
+JUMPIND
+lessString:
+PUSHIMM 0
+PUSHIMM 0
+PUSHIMM 0
+str_cmp_loop_618:
+PUSHOFF -2
+PUSHIND
+DUP
+ISNIL
+JUMPC str_cmp_secIsBigger_619
+PUSHOFF -1
+PUSHIND
+DUP
+ISNIL
+JUMPC str_cmp_firstIsBigger_620
+CMP
+DUP
+ISNEG
+JUMPC str_cmp_test_622
+DUP
+ISPOS
+JUMPC str_cmp_test_622
+ADDSP -1
+PUSHOFF -2
+PUSHIMM 1
+ADD
+STOREOFF -2
+PUSHOFF -1
+PUSHIMM 1
+ADD
+STOREOFF -1
+PUSHOFF 3
+PUSHIMM 1
+ADD
+STOREOFF 3
+PUSHOFF 4
+PUSHIMM 1
+ADD
+STOREOFF 4
+JUMP str_cmp_loop_618
+str_cmp_secIsBigger_619:
+ADDSP -1
+PUSHOFF -1
+PUSHIND
+ISNIL
+JUMPC str_cmp_equal_623
+PUSHIMM 1
+STOREOFF 2
+JUMP str_cmp_prologue_621
+str_cmp_firstIsBigger_620:
+ADDSP -2
+PUSHIMM -1
+STOREOFF 2
+JUMPC str_cmp_prologue_621
+str_cmp_prologue_621:
+PUSHOFF -2
+PUSHOFF 3
+SUB
+ADDSP -1
+PUSHOFF -1
+PUSHOFF 4
+SUB
+ADDSP -1
+ADDSP -2
+JUMP str_cmp_end_624
+str_cmp_test_622:
+STOREOFF 2
+JUMP str_cmp_prologue_621
+str_cmp_equal_623:
+PUSHIMM 0
+JUMP str_cmp_test_622
+str_cmp_end_624:
+PUSHIMM 1
+EQUAL
+STOREOFF-3
+JUMPIND
+greaterString:
+PUSHIMM 0
+PUSHIMM 0
+PUSHIMM 0
+str_cmp_loop_625:
+PUSHOFF -2
+PUSHIND
+DUP
+ISNIL
+JUMPC str_cmp_secIsBigger_626
+PUSHOFF -1
+PUSHIND
+DUP
+ISNIL
+JUMPC str_cmp_firstIsBigger_627
+CMP
+DUP
+ISNEG
+JUMPC str_cmp_test_629
+DUP
+ISPOS
+JUMPC str_cmp_test_629
+ADDSP -1
+PUSHOFF -2
+PUSHIMM 1
+ADD
+STOREOFF -2
+PUSHOFF -1
+PUSHIMM 1
+ADD
+STOREOFF -1
+PUSHOFF 3
+PUSHIMM 1
+ADD
+STOREOFF 3
+PUSHOFF 4
+PUSHIMM 1
+ADD
+STOREOFF 4
+JUMP str_cmp_loop_625
+str_cmp_secIsBigger_626:
+ADDSP -1
+PUSHOFF -1
+PUSHIND
+ISNIL
+JUMPC str_cmp_equal_630
+PUSHIMM 1
+STOREOFF 2
+JUMP str_cmp_prologue_628
+str_cmp_firstIsBigger_627:
+ADDSP -2
+PUSHIMM -1
+STOREOFF 2
+JUMPC str_cmp_prologue_628
+str_cmp_prologue_628:
+PUSHOFF -2
+PUSHOFF 3
+SUB
+ADDSP -1
+PUSHOFF -1
+PUSHOFF 4
+SUB
+ADDSP -1
+ADDSP -2
+JUMP str_cmp_end_631
+str_cmp_test_629:
+STOREOFF 2
+JUMP str_cmp_prologue_628
+str_cmp_equal_630:
+PUSHIMM 0
+JUMP str_cmp_test_629
+str_cmp_end_631:
+PUSHIMM -1
+EQUAL
+STOREOFF-3
+JUMPIND

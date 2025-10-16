@@ -1,0 +1,488 @@
+start:
+JSR main
+main:
+ADDSP 4
+PUSHIMM 0
+PUSHIMMSTR "a"
+PUSHIMM 10
+LINK
+JSR repeatString
+POPFBR
+ADDSP -2
+STOREOFF 1
+PUSHIMMSTR "abc"
+STOREOFF 2
+PUSHIMM 0
+STOREOFF 3
+JUMP cond_59
+body_60:
+PUSHOFF 3
+PUSHIMM 3
+MOD
+PUSHIMM 0
+EQUAL
+JUMPC then_2dcacc79
+PUSHOFF 2
+JUMP end_beae4ef9
+then_2dcacc79:
+PUSHIMM 0
+PUSHOFF 2
+PUSHIMMSTR "abc"
+LINK
+JSR accumulate
+POPFBR
+ADDSP -2
+end_beae4ef9:
+STOREOFF 2
+PUSHOFF 3
+PUSHIMM 1
+ADD
+STOREOFF 3
+PUSHOFF 2
+PUSHOFF 1
+PUSHSP
+PUSHIMM -2
+ADD
+POPFBR
+PUSHIMM 0
+PUSHIMM 0
+PUSHIMM 0
+str_cmp_loop_69:
+PUSHOFF 0
+PUSHIND
+DUP
+ISNIL
+JUMPC str_cmp_secIsBigger_70
+PUSHOFF 1
+PUSHIND
+DUP
+ISNIL
+JUMPC str_cmp_firstIsBigger_71
+CMP
+DUP
+ISNEG
+JUMPC str_cmp_test_73
+DUP
+ISPOS
+JUMPC str_cmp_test_73
+ADDSP -1
+PUSHOFF 0
+PUSHIMM 1
+ADD
+STOREOFF 0
+PUSHOFF 1
+PUSHIMM 1
+ADD
+STOREOFF 1
+PUSHOFF 3
+PUSHIMM 1
+ADD
+STOREOFF 3
+PUSHOFF 4
+PUSHIMM 1
+ADD
+STOREOFF 4
+JUMP str_cmp_loop_69
+str_cmp_secIsBigger_70:
+ADDSP -1
+PUSHOFF 1
+PUSHIND
+ISNIL
+JUMPC str_cmp_equal_74
+PUSHIMM 1
+STOREOFF 2
+JUMP str_cmp_prologue_72
+str_cmp_firstIsBigger_71:
+ADDSP -2
+PUSHIMM -1
+STOREOFF 2
+JUMPC str_cmp_prologue_72
+str_cmp_prologue_72:
+PUSHOFF 0
+PUSHOFF 3
+SUB
+ADDSP -1
+PUSHOFF 1
+PUSHOFF 4
+SUB
+ADDSP -1
+ADDSP -2
+JUMP str_cmp_end_75
+str_cmp_test_73:
+STOREOFF 2
+JUMP str_cmp_prologue_72
+str_cmp_equal_74:
+PUSHIMM 0
+JUMP str_cmp_test_73
+str_cmp_end_75:
+STOREOFF 0
+ADDSP -1
+PUSHIMM 0
+EQUAL
+PUSHIMM 0
+POPFBR
+PUSHOFF 2
+PUSHOFF 1
+PUSHSP
+PUSHIMM -2
+ADD
+POPFBR
+PUSHIMM 0
+PUSHIMM 0
+PUSHIMM 0
+str_cmp_loop_76:
+PUSHOFF 0
+PUSHIND
+DUP
+ISNIL
+JUMPC str_cmp_secIsBigger_77
+PUSHOFF 1
+PUSHIND
+DUP
+ISNIL
+JUMPC str_cmp_firstIsBigger_78
+CMP
+DUP
+ISNEG
+JUMPC str_cmp_test_80
+DUP
+ISPOS
+JUMPC str_cmp_test_80
+ADDSP -1
+PUSHOFF 0
+PUSHIMM 1
+ADD
+STOREOFF 0
+PUSHOFF 1
+PUSHIMM 1
+ADD
+STOREOFF 1
+PUSHOFF 3
+PUSHIMM 1
+ADD
+STOREOFF 3
+PUSHOFF 4
+PUSHIMM 1
+ADD
+STOREOFF 4
+JUMP str_cmp_loop_76
+str_cmp_secIsBigger_77:
+ADDSP -1
+PUSHOFF 1
+PUSHIND
+ISNIL
+JUMPC str_cmp_equal_81
+PUSHIMM 1
+STOREOFF 2
+JUMP str_cmp_prologue_79
+str_cmp_firstIsBigger_78:
+ADDSP -2
+PUSHIMM -1
+STOREOFF 2
+JUMPC str_cmp_prologue_79
+str_cmp_prologue_79:
+PUSHOFF 0
+PUSHOFF 3
+SUB
+ADDSP -1
+PUSHOFF 1
+PUSHOFF 4
+SUB
+ADDSP -1
+ADDSP -2
+JUMP str_cmp_end_82
+str_cmp_test_80:
+STOREOFF 2
+JUMP str_cmp_prologue_79
+str_cmp_equal_81:
+PUSHIMM 0
+JUMP str_cmp_test_80
+str_cmp_end_82:
+STOREOFF 0
+ADDSP -1
+PUSHIMM -1
+EQUAL
+PUSHIMM 0
+POPFBR
+OR
+JUMPC then_83
+else_84:
+JUMP next_85
+then_83:
+PUSHOFF 2
+JUMP end_main_58
+next_85:
+cond_59:
+PUSHIMM 0
+PUSHOFF 2
+PUSHIMMSTR "abc"
+LINK
+JSR accumulate
+POPFBR
+ADDSP -2
+PUSHOFF 1
+PUSHSP
+PUSHIMM -2
+ADD
+POPFBR
+PUSHIMM 0
+PUSHIMM 0
+PUSHIMM 0
+str_cmp_loop_62:
+PUSHOFF 0
+PUSHIND
+DUP
+ISNIL
+JUMPC str_cmp_secIsBigger_63
+PUSHOFF 1
+PUSHIND
+DUP
+ISNIL
+JUMPC str_cmp_firstIsBigger_64
+CMP
+DUP
+ISNEG
+JUMPC str_cmp_test_66
+DUP
+ISPOS
+JUMPC str_cmp_test_66
+ADDSP -1
+PUSHOFF 0
+PUSHIMM 1
+ADD
+STOREOFF 0
+PUSHOFF 1
+PUSHIMM 1
+ADD
+STOREOFF 1
+PUSHOFF 3
+PUSHIMM 1
+ADD
+STOREOFF 3
+PUSHOFF 4
+PUSHIMM 1
+ADD
+STOREOFF 4
+JUMP str_cmp_loop_62
+str_cmp_secIsBigger_63:
+ADDSP -1
+PUSHOFF 1
+PUSHIND
+ISNIL
+JUMPC str_cmp_equal_67
+PUSHIMM 1
+STOREOFF 2
+JUMP str_cmp_prologue_65
+str_cmp_firstIsBigger_64:
+ADDSP -2
+PUSHIMM -1
+STOREOFF 2
+JUMPC str_cmp_prologue_65
+str_cmp_prologue_65:
+PUSHOFF 0
+PUSHOFF 3
+SUB
+ADDSP -1
+PUSHOFF 1
+PUSHOFF 4
+SUB
+ADDSP -1
+ADDSP -2
+JUMP str_cmp_end_68
+str_cmp_test_66:
+STOREOFF 2
+JUMP str_cmp_prologue_65
+str_cmp_equal_67:
+PUSHIMM 0
+JUMP str_cmp_test_66
+str_cmp_end_68:
+STOREOFF 0
+ADDSP -1
+PUSHIMM 1
+EQUAL
+PUSHIMM 0
+POPFBR
+JUMPC body_60
+endwhile_61:
+PUSHOFF 2
+JUMP end_main_58
+end_main_58:
+STOREOFF 0
+ADDSP -3
+STOP
+accumulate:
+ADDSP 0
+PUSHIMM 0
+PUSHOFF -2
+PUSHOFF -1
+LINK
+JSR concatString
+POPFBR
+ADDSP -2
+JUMP end_accumulate_86
+end_accumulate_86:
+STOREOFF -3
+ADDSP -0
+JUMPIND
+concatString:
+str_concat_beginning:
+PUSHOFF -2
+PUSHIMM 0
+SWAP
+str_concat_loop1:
+DUP
+PUSHIND
+ISNIL
+JUMPC str_concat_middle
+SWAP
+PUSHIMM 1
+ADD
+SWAP
+PUSHIMM 1
+ADD
+JUMP str_concat_loop1
+str_concat_middle:
+PUSHOFF -1
+PUSHIMM 0
+SWAP
+JUMP str_concat_loop2
+str_concat_loop2:
+DUP
+PUSHIND
+ISNIL
+JUMPC str_concat_concatPrep
+SWAP
+PUSHIMM 1
+ADD
+SWAP
+PUSHIMM 1
+ADD
+JUMP str_concat_loop2
+str_concat_concatPrep:
+SWAP
+DUP
+PUSHOFF 2
+ADD
+PUSHIMM 1
+ADD
+MALLOC
+PUSHOFF -2
+str_concat_concat1:
+DUP
+PUSHIND
+ISNIL
+JUMPC str_concat_concat2Prep
+DUP
+PUSHIND
+PUSHOFF 6
+SWAP
+STOREIND
+PUSHIMM 1
+ADD
+PUSHOFF 6
+PUSHIMM 1
+ADD
+STOREOFF 6
+JUMP str_concat_concat1
+str_concat_concat2Prep:
+PUSHOFF -1
+str_concat_concat2:
+DUP
+PUSHIND
+ISNIL
+JUMPC str_concat_ending
+DUP
+PUSHIND
+PUSHOFF 6
+SWAP
+STOREIND
+PUSHIMM 1
+ADD
+PUSHOFF 6
+PUSHIMM 1
+ADD
+STOREOFF 6
+JUMP str_concat_concat2
+str_concat_ending:
+PUSHOFF 6
+PUSHOFF 2
+PUSHOFF 5
+ADD
+SUB
+STOREOFF -3
+ADDSP -7
+JUMPIND
+repeatString:
+PUSHIMM 0
+PUSHOFF -2
+str_repeat_beginning:
+DUP
+PUSHIND
+ISNIL
+JUMPC str_repeat_prepare
+SWAP
+PUSHIMM 1
+ADD
+SWAP
+PUSHIMM 1
+ADD
+JUMP str_repeat_beginning
+str_repeat_prepare:
+PUSHOFF -1
+PUSHOFF 2
+TIMES
+PUSHIMM 1
+ADD
+DUP
+DUP
+ISPOS
+JUMPC str_repeat_allocate
+ADDSP -1
+PUSHIMM 1
+str_repeat_allocate:
+MALLOC
+PUSHIMM 1
+PUSHOFF 4
+CMP
+PUSHIMM 1
+LESS
+JUMPC str_repeat_edgeEnd
+DUP
+PUSHOFF -2
+str_repeat_copy:
+DUP
+PUSHIND
+ISNIL
+JUMPC str_repeat_setUpForCopy
+DUP
+PUSHIND
+PUSHOFF 5
+SWAP
+STOREIND
+PUSHOFF 5
+PUSHIMM 1
+ADD
+STOREOFF 5
+PUSHIMM 1
+ADD
+JUMP str_repeat_copy
+str_repeat_setUpForCopy:
+STOREOFF 3
+PUSHOFF 6
+PUSHOFF 4
+PUSHIMM -1
+ADD
+ADD
+PUSHOFF 5
+EQUAL
+JUMPC str_repeat_prologue
+PUSHOFF -2
+JUMP str_repeat_copy
+str_repeat_edgeEnd:
+STOREOFF -1
+ADDSP -3
+JUMP str_repeat_prologue
+str_repeat_prologue:
+STOREOFF -3
+ADDSP -4
+JUMPIND
